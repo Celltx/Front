@@ -1,0 +1,253 @@
+/* ...existing code... */
+:root{
+  --bg:#f4f7fb;
+  --card:#ffffff;
+  --accent:#4f46e5;
+  --muted:#6b7280;
+  --radius:12px;
+  --shadow:0 8px 30px rgba(15,23,42,0.06);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{height:100%}
+body{
+  background: linear-gradient(180deg,#eef2ff 0%,var(--bg) 100%);
+  color:#0f172a;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Header / nav */
+header{
+  background:rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 6px rgba(2,6,23,0.06);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+header nav{
+  max-width:1100px;
+  margin:0 auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+header nav ul{
+  list-style:none;
+  display:flex;
+  gap:18px;
+}
+header nav li{
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  color:var(--muted);
+  font-weight:600;
+  transition:background .12s, color .12s, transform .08s;
+}
+header nav li:hover{
+  background:rgba(79,70,229,0.08);
+  color:var(--accent);
+  transform:translateY(-2px);
+}
+
+/* Main grid */
+main{
+  max-width:1100px;
+  margin:36px auto;
+  padding:0 20px 60px;
+  display:grid;
+  gap:20px;
+  grid-template-columns: 1fr 1fr;
+  align-items:start;
+}
+
+/* Hero / bienvenida */
+main article:first-of-type{
+  grid-column: 1 / -1;
+  background:linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  border-radius:var(--radius);
+  padding:28px;
+  box-shadow:var(--shadow);
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
+main article:first-of-type h1{
+  font-size:1.8rem;
+  margin-bottom:8px;
+}
+main article:first-of-type p{
+  color:var(--muted);
+  line-height:1.45;
+  max-width:680px;
+}
+.main-cta{
+  display:inline-block;
+  margin-top:12px;
+  padding:10px 14px;
+  background:linear-gradient(90deg,var(--accent),#06b6d4);
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+}
+
+/* Cards secundarios */
+main article:nth-of-type(n+2){
+  background:var(--card);
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(15,23,42,0.04);
+  min-height:140px;
+  color:#0b1220;
+}
+
+/* Imagen dentro del hero (si hay) */
+main article img{
+  width:220px;
+  max-width:40%;
+  border-radius:8px;
+  object-fit:cover;
+}
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:18px 10px;
+  color:var(--muted);
+  font-size:0.9rem;
+  margin-top:20px;
+}
+
+/* Responsive */
+@media (max-width:860px){
+  main{grid-template-columns:1fr; padding:0 16px;}
+  main article:first-of-type{flex-direction:column; align-items:flex-start;}
+  main article img{width:100%; max-width:100%;}
+  header nav{justify-content:center}
+}
+
+/* Tipos de apps: fila horizontal y tarjetas (modificado) */
+.apps-section h2{
+  margin:0 0 12px;
+  font-size:1.1rem;
+  color:#0f172a;
+}
+
+/* fila horizontal fija: 3 tarjetas repartidas en el ancho */
+.apps-row{
+  display:flex;
+  gap:18px;
+  align-items:stretch;
+  justify-content:space-between;
+  /* evita scroll horizontal y permite que las tarjetas se reduzcan */
+  flex-wrap:nowrap;
+}
+
+/* tarjeta: repartir espacio entre las 3 columnas */
+.app-card{
+  background:var(--card);
+  flex:1 1 0;       /* crecer y reducir según el contenedor */
+  min-width:200px;  /* evita que se colapsen demasiado */
+  max-width:33.333%; /* intenta permitir 3 en una fila */
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(15,23,42,0.04);
+  padding:10px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* imagen ocupa la parte superior y mantiene proporción */
+.app-card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:8px;
+  display:block;
+  flex-shrink:0;
+}
+
+/* título centrado */
+.app-card h3{
+  margin:0;
+  font-size:1rem;
+  color:#0b1220;
+  margin-top:auto;
+}
+
+/* asegurar que las secciones ocupen fila completa */
+.apps-section,
+.langs-section {
+  grid-column: 1 / -1;
+  margin-top: 18px;
+}
+
+/* fila horizontal: 3 tarjetas en una fila */
+.apps-row{
+  display:flex;
+  gap:18px;
+  align-items:stretch;
+  justify-content:space-between;
+  flex-wrap:nowrap; /* mantenerlas en una sola línea */
+  overflow:visible;
+}
+
+/* tarjeta: 3 columnas iguales */
+.app-card{
+  background:var(--card);
+  flex: 0 0 calc(33.333% - 12px); /* tres tarjetas por fila */
+  min-width:180px;
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(15,23,42,0.04);
+  padding:10px;                /* menos padding para más espacio útil */
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  overflow:hidden;             /* evita que el contenido se salga del borde */
+}
+
+/* imagen: cuadro (1:1) y mostrar la imagen completa sin recortar */
+.app-card img{
+  width:100%;
+  aspect-ratio:1 / 1;         /* fuerza proporción cuadrada */
+  object-fit:contain;         /* muestra la imagen completa dentro del cuadro */
+  object-position:center;
+  background:#ffffff;         /* fondo para imágenes con transparencia */
+  padding:10px;               /* espacio interior (evita "pegado" a bordes) */
+  border-radius:8px;
+  display:block;
+  flex-shrink:0;
+}
+
+/* título centrado */
+.app-card h3{
+  margin:0;
+  font-size:1rem;
+  color:#0b1220;
+  margin-top:auto;
+}
+
+/* responsive: en pantallas pequeñas permite scroll horizontal o apilar según preferencia */
+@media (max-width:860px){
+  .apps-row{
+    gap:14px;
+    /* si prefieres scroll horizontal en móvil, descomenta la siguiente línea y comenta flex-direction:column */
+    /* overflow-x:auto; */
+    /* white-space:nowrap; */
+  }
+  .app-card{
+    flex: 0 0 72%; /* cuando haya scroll, tarjetas más anchas */
+    max-width: 72%;
+  }
+
+  /* alternativa: apilar (descomentar para apilar en vez de scroll) */
+  /* .apps-row{ flex-direction:column; } */
+  /* .app-card{ flex:1 1 100%; max-width:100%; } */
+}
